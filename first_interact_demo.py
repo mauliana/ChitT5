@@ -49,7 +49,8 @@ def preprocess(sentence, history):
 
     return text 
 
-def cosine_similarity(sentence1, sentence2):
+
+def calculate_similarity(sentence1, sentence2):
     # Initialize CountVectorizer with suitable configurations
     vectorizer = CountVectorizer()
 
@@ -58,6 +59,7 @@ def cosine_similarity(sentence1, sentence2):
 
     # Calculate the cosine similarity between the vectors
     similarity = cosine_similarity([vectors[0]], [vectors[1]])
+
     return similarity[0][0]
 
 def transition():
@@ -100,7 +102,7 @@ def post_process(sentence, history):
     # check the similarity
     size = len(history)
     if(size > 2):
-        similarity_score = cosine_similarity(sentence, history[size-2])
+        similarity_score = calculate_similarity(sentence, history[size-2])
         if similarity_score >= 0.6:
             # do transition by randomly select the question from the defined list
             text = transition()
@@ -113,7 +115,7 @@ def post_process(sentence, history):
 
 
 def main():
-    model_path = "models"
+    model_path = "model"
     model, tokenizer = load_model(model_path)
 
     conv_history = []
@@ -127,13 +129,14 @@ def main():
             break
         
         input_text = preprocess(user_input, conv_history)
+        conv_history.append(input_text)
 
         # generate the response
         response = generate_response("generate response: "+input_text, model, tokenizer)
         post_text = post_process(response, conv_history)
 
         print("Robot: "+post_text)
-        conv_history = input_text+" "+response
+        conv_history.append(post_text)
 
 
 if __name__ == "__main__":
