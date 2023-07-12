@@ -1,0 +1,7 @@
+evaluate==0.4.0
+fastT5==0.1.4
+numpy==1.25.0
+pandas==2.0.3
+scikit_learn==1.2.2
+torch==2.0.1
+transformers==4.30.2
