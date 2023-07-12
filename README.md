@@ -25,8 +25,23 @@ To reproduce the model:
 
 ## Installation Requirement
 Simulation:
+evaluate==0.4.0
+fastT5==0.1.4
+numpy==1.25.0
+pandas==2.0.3
+scikit_learn==1.2.2
+torch==2.0.1
+transformers==4.30.2
 
 Reproduce the model:
+datasets==2.13.1
+evaluate==0.4.0
+numpy==1.25.0
+pandas==2.0.3
+scikit_learn==1.2.2
+torch==2.0.1
+transformers==4.30.2
+
 
 ## References
 <a id="1">[1]</a> 
