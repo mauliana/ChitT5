@@ -14,7 +14,6 @@ import evaluate
 
 bleu = evaluate.load('sacrebleu')
 meteor = evaluate.load("meteor")
-rouge = evaluate.load("rouge")
 
 datasets.logging.set_verbosity_info()
 transformers.logging.set_verbosity_info()
@@ -169,13 +168,11 @@ def main():
         # compute the scores
         bleu_score = bleu.compute(predictions=decoded_preds, references=decoded_labels)
         meteor_score = meteor.compute(predictions=decoded_preds, references=decoded_labels)
-        rouge_score = rouge.compute(predictions=decoded_preds, references=decoded_labels, use_aggregator=True)
         
         prediction_lens = [np.count_nonzero(pred != tokenizer.pad_token_id) for pred in preds]
         
         result = {'bleu' : round(bleu_score["score"], 4),
-                'meteor' : round(meteor_score["meteor"], 4),
-                'rougeL' : round(rouge_score["rougeL"],4)}
+                'meteor' : round(meteor_score["meteor"], 4)}
         result["gen_len"] = np.mean(prediction_lens)
         return result
 
